@@ -25,7 +25,6 @@ export default function ItineraryView() {
   if (loading) return (
     <div className="min-h-screen bg-bg">
       <Navbar />
-      {toast && <Toast message={toast} onClose={() => setToast('')} />}
       <div className="flex justify-center items-center h-[60vh]">
         <div className="w-10 h-10 rounded-full border-[3px] border-primary-light border-t-primary animate-spin" />
       </div>
@@ -49,7 +48,8 @@ export default function ItineraryView() {
   return (
     <div className="min-h-screen bg-bg">
       <Navbar />
-
+       {toast && <Toast message={toast} onClose={() => setToast('')} />}
+        
       <div className="px-4 sm:px-6 py-10 sm:py-14 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)' }}>
         <div className="absolute -right-10 -bottom-10 opacity-[0.04] pointer-events-none">
           <Plane size={220} className="text-white" />
