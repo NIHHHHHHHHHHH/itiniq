@@ -1,7 +1,42 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import useAuth from './hooks/useAuth';
+import Login from './pages/Login';
+import Register from './pages/Register';
+
+const PlaceholderPage = ({ title }) => (
+  <div className="min-h-screen flex items-center justify-center bg-bg">
+    <h2 className="text-text-primary font-bold text-3xl">{title} - Phase coming soon</h2>
+  </div>
+);
+
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/login" replace />;
+};
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/shared/:shareToken" element={<PlaceholderPage title="Shared View" />} />
+      <Route path="/dashboard" element={<ProtectedRoute><PlaceholderPage title="Dashboard" /></ProtectedRoute>} />
+      <Route path="/upload" element={<ProtectedRoute><PlaceholderPage title="Upload" /></ProtectedRoute>} />
+      <Route path="/processing/:uploadId" element={<ProtectedRoute><PlaceholderPage title="Processing" /></ProtectedRoute>} />
+      <Route path="/itinerary/:id" element={<ProtectedRoute><PlaceholderPage title="Itinerary View" /></ProtectedRoute>} />
+      <Route path="*" element={<PlaceholderPage title="404 — Not Found" />} />
+    </Routes>
+  );
+}
+
 export default function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-amber-50">
-      <h1 className="text-4xl font-bold text-blue-600">Itiniq</h1>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
