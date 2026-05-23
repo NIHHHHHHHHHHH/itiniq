@@ -108,7 +108,8 @@ export const deleteOne = async (req, res, next) => {
 
 export const getByShareToken = async (req, res, next) => {
   try {
-    const itinerary = await Itinerary.findOne({ shareToken: req.params.shareToken, isPublic: true });
+   const itinerary = await Itinerary.findOne({ shareToken: req.params.shareToken, isPublic: true })
+  .populate('uploadId', 'extractedData');
     if (!itinerary) {
       return res.status(404).json({ success: false, data: null, message: 'Shared itinerary not found' });
     }
