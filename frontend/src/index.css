@@ -1,1 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
 @import "tailwindcss";
+
+@theme {
+
+  /* Colors*/
+  --color-primary: #0077B6;
+  --color-primary-dark: #023E8A;
+  --color-primary-light: #90E0EF;
+  --color-accent: #F77F00;
+  --color-accent-dark: #D62828;
+  --color-accent-light: #FCBF49;
+
+  /* Backgrounds */
+  --color-bg: #F0F9FF;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #E0F2FE;
+
+  /* Text */
+  --color-text-primary: #03045E;
+  --color-text-secondary: #0077B6;
+  --color-text-muted: #6B7280;
+
+  /* UI */
+  --color-border: #BAE6FD;
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 119, 182, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 119, 182, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 119, 182, 0.16);
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* Typography */
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
