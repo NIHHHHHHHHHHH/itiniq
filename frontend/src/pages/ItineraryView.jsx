@@ -1,20 +1,23 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Plane, Calendar, Share2, ChevronLeft, Activity } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import DayView from '@/components/itinerary/DayView';
 import { useItinerary } from '@/hooks/useItinerary';
+import Toast from '@/components/ui/Toast';
 
 export default function ItineraryView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { itinerary, loading, error } = useItinerary(id);
+  const [toast, setToast] = useState('');
 
-  const handleShare = () => {
-    if (!itinerary) return;
-    const url = `${window.location.origin}/shared/${itinerary.shareToken}`;
-    navigator.clipboard.writeText(url);
-    alert('Share link copied to clipboard!');
-  };
+ const handleShare = () => {
+  if (!itinerary) return;
+  const url = `${window.location.origin}/shared/${itinerary.shareToken}`;
+  navigator.clipboard.writeText(url);
+  setToast('Link copied to clipboard!');
+};
 
   const formatDate = (d) =>
     d ? new Date(d).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) : null;
@@ -22,6 +25,7 @@ export default function ItineraryView() {
   if (loading) return (
     <div className="min-h-screen bg-bg">
       <Navbar />
+      {toast && <Toast message={toast} onClose={() => setToast('')} />}
       <div className="flex justify-center items-center h-[60vh]">
         <div className="w-10 h-10 rounded-full border-[3px] border-primary-light border-t-primary animate-spin" />
       </div>
