@@ -1,22 +1,21 @@
 
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import connectDB from './config/db.js';
+import authRoutes from './routes/auth.routes.js';
+import errorHandler from './middleware/error.middleware.js';
 
-import dotenv from 'dotenv';
 dotenv.config({ 
   path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.local' 
 });
 
+
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-
-
 
 connectDB();
 
@@ -28,7 +27,7 @@ app.use(cors({
 
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, 
+  windowMs: 15 * 60 * 1000,  // 15 min
   max: 100,
   message: { success: false, data: null, message: 'Too many requests, please try again later.' },
 });
@@ -48,10 +47,15 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ success: true, data: { status: 'ok' }, message: 'Server is running' });
 });
 
+
+app.use('/api/auth', authRoutes);
+
 app.use((req, res) => {
   res.status(404).json({ success: false, data: null, message: `Route ${req.originalUrl} not found` });
 });
 
+
+app.use(errorHandler);
 
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
