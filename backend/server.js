@@ -8,7 +8,9 @@ import rateLimit from 'express-rate-limit';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
+import itineraryRoutes from './routes/itinerary.routes.js';
 import errorHandler from './middleware/error.middleware.js';
+
 
 dotenv.config({ 
   path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.local' 
@@ -51,6 +53,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/itinerary', itineraryRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, data: null, message: `Route ${req.originalUrl} not found` });
