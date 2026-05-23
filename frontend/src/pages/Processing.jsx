@@ -58,7 +58,7 @@ export default function Processing() {
                   }
                 `}
               >
-                <div className="w-9 h-9 rounded-lg flex items-center justify-centershrink-0" style={{
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{
                     background: active
                       ? 'var(--color-primary)': done
                         ? 'var(--color-surface-2)' : 'var(--color-surface-2)',
