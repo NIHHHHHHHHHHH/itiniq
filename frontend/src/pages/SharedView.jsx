@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Plane, Calendar, Activity, Globe, Search, ArrowRight } from 'lucide-react';
 import api from '@/services/api';
 import DayView from '@/components/itinerary/DayView';
+import BoardingPassCard from '@/components/itinerary/BoardingPassCard';
 
 export default function SharedView() {
   const { shareToken } = useParams();
@@ -147,7 +148,12 @@ export default function SharedView() {
           )}
         </div>
       </div>
-
+      
+      {/* Boarding Pass */}
+      <div className="max-w-205 mx-auto px-4 sm:px-6 pt-10">
+        <BoardingPassCard itinerary={itinerary} />
+      </div>
+      
       {/* Days */}
       <div className="max-w-205 mx-auto px-4 sm:px-6 py-10 sm:py-12">
         {itinerary.days?.map((day) => <DayView key={day.day} day={day} />)}
