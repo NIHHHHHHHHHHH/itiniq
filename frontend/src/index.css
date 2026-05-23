@@ -107,6 +107,10 @@ body {
   100% { background-position:  200% 0; }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-5deg); }
+  50% { transform: translateY(-16px) rotate(5deg); }
+}
  
 .animate-fade-in {
   animation: fadeIn 0.4s ease both;
